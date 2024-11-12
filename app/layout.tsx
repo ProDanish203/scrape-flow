@@ -1,5 +1,21 @@
 import type { Metadata } from "next";
+import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/store/ThemeProvider";
+
+const poppins = Poppins({
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  display: "swap",
+  variable: "--font-roboto",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +29,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`${poppins.className} ${roboto.variable} antialiased`}>
+        {/* // TODO: Throws Hydartion Error */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
