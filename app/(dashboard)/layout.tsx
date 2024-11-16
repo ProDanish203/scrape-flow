@@ -1,6 +1,7 @@
 import { ThemeToggle } from "@/components/helpers";
 import { BreadcrumbHeader, DesktopSidebar } from "@/components/shared";
 import { Separator } from "@/components/ui/separator";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import React, { ReactNode } from "react";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
@@ -12,6 +13,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           <BreadcrumbHeader />
           <div className="flex items-center gap-1">
             <ThemeToggle />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </header>
         <Separator />

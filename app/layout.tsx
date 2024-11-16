@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/store/ThemeProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -29,17 +30,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} ${roboto.variable} antialiased`}>
-        {/* // TODO: Throws Hydartion Error */}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+      <ClerkProvider
+        afterSignOutUrl={"/sign-in"}
+        appearance={{
+          elements: {
+            formButtonPrimary:
+              "bg-primary hover:bg-primary/90 text-sm !shadow-none",
+          },
+        }}
+      >
+        <body className={`${poppins.className} ${roboto.variable} antialiased`}>
+          {/* // TODO: Throws Hydartion Error */}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
