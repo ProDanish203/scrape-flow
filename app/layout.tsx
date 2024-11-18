@@ -3,6 +3,7 @@ import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/store/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
+import ReactQueryProvider from "@/store/ReactQueryProvider";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -40,15 +41,17 @@ export default function RootLayout({
         }}
       >
         <body className={`${poppins.className} ${roboto.variable} antialiased`}>
-          {/* // TODO: Throws Hydartion Error */}
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <ReactQueryProvider>
+            {/* // TODO: Throws Hydartion Error */}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </ReactQueryProvider>
         </body>
       </ClerkProvider>
     </html>
