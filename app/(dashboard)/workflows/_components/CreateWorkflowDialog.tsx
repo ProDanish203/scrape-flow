@@ -5,7 +5,6 @@ import { Layers2Icon, Loader2 } from "lucide-react";
 import React, { useCallback, useState } from "react";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   createWorkflowSchema,
   createWorkflowSchemaType,
@@ -55,7 +54,13 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
   );
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => {
+        form.reset();
+        setOpen(open);
+      }}
+    >
       <DialogTrigger asChild>
         <Button>{triggerText ?? "Create Workflow"}</Button>
       </DialogTrigger>

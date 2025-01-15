@@ -1,6 +1,7 @@
 import { UserWorkflowsSkeleton } from "./_components/UserWorkflowsSkeleton";
 import { UserWorkflows } from "./_components/UserWorkflows";
 import React, { Suspense } from "react";
+import CreateWorkflowDialog from "./_components/CreateWorkflowDialog";
 
 const WorkflowPage = () => {
   return (
@@ -10,6 +11,7 @@ const WorkflowPage = () => {
           <h1 className="text-3xl font-bold">Workflows</h1>
           <p className="text-muted-foreground">Manage your workflows</p>
         </div>
+        <CreateWorkflowDialog triggerText="Create Workflow" />
       </div>
 
       <div className="h-full py-6">
