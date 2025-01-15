@@ -14,7 +14,7 @@ model Workflow {
   description String?
 
   definition String
-  satus      String
+  status     String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

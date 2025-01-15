@@ -6,7 +6,6 @@ import CreateWorkflowDialog from "./CreateWorkflowDialog";
 
 export const UserWorkflows = async () => {
   const workflows = await GetWorkflowsForUser();
-
   if (!workflows) {
     return (
       <Alert variant={"destructive"}>
