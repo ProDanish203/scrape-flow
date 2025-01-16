@@ -6,20 +6,25 @@ import { WorkflowStatus } from '@/types/workflow';
 import { redirect } from 'next/navigation';
 
 export const CreateWorkflow = async (form: createWorkflowSchemaType) => {
-    const { success, data } = createWorkflowSchema.safeParse(form);
-    if (!success) throw new Error("Invalid form data");
-    const { userId } = await auth()
-    if (!userId) throw new Error("Unauthorized");
+    try {
 
-    const result = await prisma.workflow.create({
-        data: {
-            ...data,
-            userId,
-            status: WorkflowStatus.DRAFT,
-            definition: "TODO"
-        }
-    })
-    if (!result) throw new Error("Failed to create workflow");
+        const { success, data } = createWorkflowSchema.safeParse(form);
+        if (!success) throw new Error("Invalid form data");
+        const { userId } = await auth()
+        if (!userId) throw new Error("Unauthorized");
 
-    redirect(`/workflow/editor/${result.id}`);
+        const result = await prisma.workflow.create({
+            data: {
+                ...data,
+                userId,
+                status: WorkflowStatus.DRAFT,
+                definition: "TODO"
+            }
+        })
+        if (!result) throw new Error("Failed to create workflow abc");
+
+        redirect(`/workflow/editor/${result.id}`);
+    } catch (err) {
+        console.error(err);
+    }
 }
