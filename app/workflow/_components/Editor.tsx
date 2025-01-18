@@ -5,6 +5,7 @@ import { ReactFlowProvider } from "@xyflow/react";
 import { FlowEditor } from "./FlowEditor";
 import { TopBar } from "./topbar/TopBar";
 import { TaskMenu } from "./TaskMenu";
+import { FlowValidationProvider } from "@/store/FlowValidationProvider";
 
 interface Props {
   workflow: Workflow;
@@ -12,18 +13,20 @@ interface Props {
 
 export const Editor: React.FC<Props> = ({ workflow }) => {
   return (
-    <ReactFlowProvider>
-      <div className="flex flex-col h-full w-full overflow-hidden">
-        <TopBar
-          title="Workflow Editor"
-          subTitle={workflow.name}
-          workflowId={workflow.id}
-        />
-        <section className="flex h-full overflow-auto">
-          <TaskMenu />
-          <FlowEditor workflow={workflow} />
-        </section>
-      </div>
-    </ReactFlowProvider>
+    <FlowValidationProvider>
+      <ReactFlowProvider>
+        <div className="flex flex-col h-full w-full overflow-hidden">
+          <TopBar
+            title="Workflow Editor"
+            subTitle={workflow.name}
+            workflowId={workflow.id}
+          />
+          <section className="flex h-full overflow-auto">
+            <TaskMenu />
+            <FlowEditor workflow={workflow} />
+          </section>
+        </div>
+      </ReactFlowProvider>
+    </FlowValidationProvider>
   );
 };

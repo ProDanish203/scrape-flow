@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { useReactFlow } from "@xyflow/react";
+import { useFlowValidation } from "@/store/FlowValidationProvider";
 
 interface Props {
   nodeId: string;
@@ -11,6 +12,9 @@ interface Props {
 
 const NodeCard: React.FC<Props> = ({ nodeId, children, isSelected }) => {
   const { getNode, setCenter } = useReactFlow();
+  const { invalidInputs } = useFlowValidation();
+
+  const hasInvalidInputs = invalidInputs.some((node) => node.nodeId === nodeId);
   return (
     <div
       onDoubleClick={() => {
@@ -29,7 +33,8 @@ const NodeCard: React.FC<Props> = ({ nodeId, children, isSelected }) => {
       }}
       className={cn(
         "rounded-md cursor-pointer bg-background border-2 border-separate w-[420px] text-xs gap-1 flex flex-col",
-        isSelected && "border-primary"
+        isSelected && "border-primary",
+        hasInvalidInputs && "border-destructive border-2"
       )}
     >
       {children}
