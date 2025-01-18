@@ -39,10 +39,18 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: CreateWorkflow,
-    onSuccess: () =>
-      toast.success("Workflow created successfully", { id: "create-workflow" }),
-    onError: () =>
-      toast.error("Failed to create workflow", { id: "create-workflow" }),
+    onSuccess: () => {
+      toast.success("Workflow created successfully", { id: "create-workflow" });
+      form.reset();
+      setOpen(false);
+      toast.dismiss("create-workflow");
+    },
+    onError: (err) => {
+      if (err.message === "NEXT_REDIRECT")
+        return toast.dismiss("create-workflow");
+
+      toast.error("Failed to create workflow", { id: "create-workflow" });
+    },
   });
 
   const onSubmit = useCallback(
