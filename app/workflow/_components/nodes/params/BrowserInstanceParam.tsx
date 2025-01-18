@@ -6,6 +6,7 @@ export const BrowserInstanceParam: React.FC<ParamProps> = ({
   param,
   value,
   updateNodeParamValue,
+  disabled,
 }) => {
   return <p>{param.name}</p>;
 };
