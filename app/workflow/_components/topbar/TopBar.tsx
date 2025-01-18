@@ -11,12 +11,14 @@ interface TopbarProps {
   title: string;
   workflowId: string;
   subTitle?: string;
+  hideButtons?: boolean;
 }
 
 export const TopBar: React.FC<TopbarProps> = ({
   title,
   subTitle,
   workflowId,
+  hideButtons,
 }) => {
   const router = useRouter();
   return (
@@ -37,8 +39,12 @@ export const TopBar: React.FC<TopbarProps> = ({
         </div>
       </div>
       <div className="flex gap-1 flex-1 justify-end">
-        <ExecuteButton workflowId={workflowId} />
-        <SaveButton workflowId={workflowId} />
+        {!hideButtons && (
+          <>
+            <ExecuteButton workflowId={workflowId} />
+            <SaveButton workflowId={workflowId} />
+          </>
+        )}
       </div>
     </header>
   );

@@ -21,7 +21,10 @@ export const ExecuteButton: React.FC<ExecuteButtonProps> = ({ workflowId }) => {
     onSuccess: () => {
       toast.success("Workflow executed", { id: "workflow-execution" });
     },
-    onError: () => {
+    onError: (err) => {
+      if (err.message === "NEXT_REDIRECT")
+        return toast.dismiss("workflow-execution");
+
       toast.error("Failed to execute workflow", {
         id: "workflow-execution",
       });
