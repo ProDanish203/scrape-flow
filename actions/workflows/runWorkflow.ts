@@ -1,6 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { ExecuteWorkflow } from "@/lib/workflow/executeWorkflow";
 import { FlowToExecutionPlan } from "@/lib/workflow/FlowToExecutionPlan";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
@@ -63,9 +64,11 @@ export async function RunWorkflow({ workflowId, flowDefintion }: { workflowId: s
         })
 
         if (!execution) throw new Error("Failed to execute workflow")
+        ExecuteWorkflow(execution.id)
         executionId = execution.id
     } catch (err) {
         console.error(err)
     }
+
     redirect(`/workflow/runs/${workflowId}/${executionId!}`)
 }

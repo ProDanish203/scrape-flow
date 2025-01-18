@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DatesToDurationString } from "@/lib/helper/dates";
 import { GetPhasesTotalCost } from "@/lib/helper/phases";
+import { GetWorkflowPhaseDetails } from "@/actions/workflows/getworkflowPhaseDetails";
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
 
@@ -42,7 +43,7 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
   const { data: phaseData, isLoading: phaseIsLoading } = useQuery({
     queryKey: ["phaseDetails", selectedPhase],
     enabled: selectedPhase !== null,
-    // queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
+    queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
   });
 
   const isRunning = data?.status === WorkflowExecutionStatus.RUNNING;
@@ -63,6 +64,7 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
     <>
       {data && (
         <div className="flex w-full h-full">
+          {/* Sidebar */}
           <aside className="w-[440px] min-w-[440px] max-w-[400px] border-r-2 border-separate flex flex-col flex-grow overflow-hidden">
             <div className="py-4 px-2">
               <ExecutionLabel
@@ -139,6 +141,11 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
               ))}
             </div>
           </aside>
+
+          {/* Main Content */}
+          <div className="flex w-full h-full">
+            <pre>{JSON.stringify(phaseData, null, 4)}</pre>
+          </div>
         </div>
       )}
     </>
