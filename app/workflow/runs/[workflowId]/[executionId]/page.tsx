@@ -1,9 +1,9 @@
 import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
 import { TopBar } from "@/app/workflow/_components/topbar/TopBar";
-import { waitFor } from "@/lib/helper/waitFor";
 import { Loader2Icon } from "lucide-react";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
+import { ExecutionViewer } from "./_components/ExecutionViewer";
 
 const ExecutionPage = async ({
   params,
@@ -45,9 +45,5 @@ async function ExecutionViewerWrapper({
   const workflowExecution = await GetWorkflowExecutionWithPhases(executionId);
 
   if (!workflowExecution) return notFound();
-  return (
-    <div>
-      <pre>{JSON.stringify(workflowExecution, null, 4)}</pre>
-    </div>
-  );
+  return <ExecutionViewer initialData={workflowExecution} />;
 }
