@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/store/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import ReactQueryProvider from "@/store/ReactQueryProvider";
 import { Toaster } from "sonner";

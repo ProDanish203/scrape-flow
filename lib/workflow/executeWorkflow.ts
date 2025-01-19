@@ -173,7 +173,7 @@ async function finalizeExecution(executionId: string, workflowId: string, execut
             lastRunStatus: finalStatus
         }
     }).catch((err) => {
-
+        console.error(`Failed to update workflow status: ${err}`)
     })
 }
 

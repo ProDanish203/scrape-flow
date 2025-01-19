@@ -4,7 +4,6 @@ import {
   BaseEdge,
   EdgeLabelRenderer,
   EdgeProps,
-  getSimpleBezierPath,
   getSmoothStepPath,
   useReactFlow,
 } from "@xyflow/react";
@@ -12,7 +11,9 @@ import { X } from "lucide-react";
 import React from "react";
 
 export const DeletableEdge = (props: EdgeProps) => {
+  // const [edgePath, labelX, labelY] = getSimpleBezierPath(props);
   const [edgePath, labelX, labelY] = getSmoothStepPath(props);
+
   const { setEdges } = useReactFlow();
   return (
     <>

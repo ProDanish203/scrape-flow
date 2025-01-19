@@ -9,7 +9,6 @@ import {
   CoinsIcon,
   Loader2Icon,
   LucideIcon,
-  LucideProps,
   WorkflowIcon,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -40,7 +39,7 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
       q.state.data?.status === WorkflowExecutionStatus.RUNNING ? 1000 : false,
   });
 
-  const { data: phaseData, isLoading: phaseIsLoading } = useQuery({
+  const { data: phaseData } = useQuery({
     queryKey: ["phaseDetails", selectedPhase],
     enabled: selectedPhase !== null,
     queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
