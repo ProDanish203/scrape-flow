@@ -15,8 +15,9 @@ export async function LaunchBrowserExecutor(environment: ExecutionEnvironment<ty
         environment.setPage(page)
 
         return true
-    } catch (err) {
+    } catch (err: any) {
         console.log(err)
+        environment.log.error(err.message)
         return false
     }
 }

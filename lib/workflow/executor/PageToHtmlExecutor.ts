@@ -7,8 +7,9 @@ export async function PageToHtmlExecutor(environment: ExecutionEnvironment<typeo
         environment.setOutput('Html', html)
 
         return true
-    } catch (err) {
+    } catch (err: any) {
         console.log(err)
+        environment.log.error(err.message)
         return false
     }
 }

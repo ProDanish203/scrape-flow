@@ -12,12 +12,19 @@ export const GetWorkflowPhaseDetails = async (phaseId: string) => {
       where: {
         id: phaseId,
         execution: {
-            userId,
-        }
+          userId,
+        },
+      },
+      include: {
+        logs: {
+          orderBy: {
+            timestamp: "asc",
+          },
+        },
       },
     });
 
-    if(!phaseDetails) throw new Error("Phase not found");
+    if (!phaseDetails) throw new Error("Phase not found");
 
     return phaseDetails;
   } catch (err) {
