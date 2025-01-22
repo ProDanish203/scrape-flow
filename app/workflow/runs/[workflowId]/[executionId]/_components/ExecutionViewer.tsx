@@ -109,7 +109,14 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
             <div className="py-4 px-2">
               <ExecutionLabel
                 label="Status"
-                value={data.status}
+                value={
+                  <div className="font-semibold capitalize flex gap-2 items-center">
+                    <PhaseStatusBadge
+                      status={data.status as ExecutionPhaseStatus}
+                    />
+                    <span>{data.status}</span>
+                  </div>
+                }
                 Icon={CircleDashedIcon}
               />
 

@@ -31,7 +31,7 @@ export const SaveButton = ({ workflowId }: { workflowId: string }) => {
       onClick={handleSave}
     >
       <CheckIcon size={16} />
-      Save
+      <span className="max-md:hidden">Save</span>
     </Button>
   );
 };

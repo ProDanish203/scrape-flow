@@ -53,7 +53,7 @@ export const ExecuteButton: React.FC<ExecuteButtonProps> = ({ workflowId }) => {
       disabled={isPending}
     >
       <PlayIcon size={16} className="stroke-white" />
-      Execute
+      <span className="max-md:hidden">Execute</span>
     </Button>
   );
 };
