@@ -1,6 +1,9 @@
 "use client";
 import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
-import { WorkflowExecutionStatus } from "@/types/workflow";
+import {
+  ExecutionPhaseStatus,
+  WorkflowExecutionStatus,
+} from "@/types/workflow";
 import { useQuery } from "@tanstack/react-query";
 import {
   CalendarIcon,
@@ -21,14 +24,13 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { formatDistanceToNow } from "date-fns";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -39,6 +41,7 @@ import { Input } from "@/components/ui/input";
 import { ExecutionLog } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { LogLevel } from "@/types/log";
+import { PhaseStatusBadge } from "./PhaseStatusBadge";
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
 
@@ -66,6 +69,23 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
   });
 
   const isRunning = data?.status === WorkflowExecutionStatus.RUNNING;
+
+  useEffect(() => {
+    const phases = data?.phases || [];
+    if (isRunning) {
+      const phaseToSelect = phases.toSorted((a, b) =>
+        a.startedAt! > b.startedAt! ? -1 : 1
+      )[0];
+
+      setSelectedPhase(phaseToSelect?.id);
+      return;
+    }
+
+    const phaseToSelect = phases.toSorted((a, b) =>
+      a.completedAt! > b.completedAt! ? -1 : 1
+    )[0];
+    setSelectedPhase(phaseToSelect?.id);
+  }, [data?.phases, isRunning, setSelectedPhase]);
 
   const duration = DatesToDurationString(data?.completedAt, data?.startedAt);
 
@@ -153,9 +173,9 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
                     <Badge variant="outline">{index + 1}</Badge>
                     <p className="font-semibold">{phase.name}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    {phase.status}
-                  </p>
+                  <PhaseStatusBadge
+                    status={phase.status as ExecutionPhaseStatus}
+                  />
                 </Button>
               ))}
             </div>
