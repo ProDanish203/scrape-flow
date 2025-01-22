@@ -42,6 +42,7 @@ import { ExecutionLog } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { LogLevel } from "@/types/log";
 import { PhaseStatusBadge } from "./PhaseStatusBadge";
+import { ReactCountupWrapper } from "@/components/helpers/ReactCountupWrapper";
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
 
@@ -143,7 +144,7 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
 
               <ExecutionLabel
                 label="Credits consumed"
-                value={creditsConsumed}
+                value={<ReactCountupWrapper value={creditsConsumed} />}
                 Icon={CoinsIcon}
               />
             </div>
@@ -209,7 +210,7 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
                         className="stroke-muted-foreground"
                       />
                       <span>Credits</span>
-                      <span>TODO</span>
+                      <span>{phaseData.creditsConsumed}</span>
                     </div>
                   </Badge>
 

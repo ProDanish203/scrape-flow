@@ -306,7 +306,7 @@ async function decrementUserCredits(
 ) {
     try {
         await prisma.userBalance.update({
-            where: { userId: userId },
+            where: { userId: userId, credits: { gte: credits } },
             data: {
                 credits: {
                     decrement: credits,

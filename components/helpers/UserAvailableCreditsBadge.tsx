@@ -28,7 +28,7 @@ export const UserAvailableCreditsBadge = () => {
       <span>
         {isLoading && <Loader2Icon className="w-4 h-4 animate-spin" />}
         {!isLoading && data && <ReactCountupWrapper value={data} />}
-        {!isLoading && !data && "-"}
+        {!isLoading && data === undefined && "-"}
       </span>
     </Link>
   );

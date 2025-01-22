@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { SaveButton } from "./SaveButton";
 import { ExecuteButton } from "./ExecuteButton";
+import { NavigationTabs } from "./NavigationTabs";
 
 interface TopbarProps {
   title: string;
@@ -38,6 +39,7 @@ export const TopBar: React.FC<TopbarProps> = ({
           )}
         </div>
       </div>
+      <NavigationTabs workflowId={workflowId} />
       <div className="flex gap-1 flex-1 justify-end">
         {!hideButtons && (
           <>
