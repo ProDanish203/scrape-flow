@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { Logo } from "./Logo";
+import { UserAvailableCreditsBadge } from "../helpers";
 
 export const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,9 +34,9 @@ export const MobileSidebar = () => {
             className="w-[400px] sm:w-[540px] space-y-4"
             side={"left"}
           >
-            <SheetTitle>
-              <Logo />
-            </SheetTitle>
+            <Logo />
+            <UserAvailableCreditsBadge />
+
             <div className="flex flex-col gap-1">
               {dashboardRoutes.map((route, idx) => (
                 <Link
