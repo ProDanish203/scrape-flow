@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import TooltipWrapper from "@/components/helpers/TooltipWrapper";
 import DeleteWorkflowDialog from "./DeleteWorkflowDialog";
+import { RunButton } from "./RunButton";
 
 interface Props {
   workflow: Workflow;
@@ -68,6 +69,7 @@ export const WorkflowCard: React.FC<Props> = ({ workflow }) => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
+          {!isDraft && <RunButton workflowId={workflow.id} />}
           <Link
             href={`/workflow/editor/${workflow.id}`}
             className={cn(

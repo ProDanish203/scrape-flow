@@ -7,12 +7,15 @@ import React from "react";
 import { SaveButton } from "./SaveButton";
 import { ExecuteButton } from "./ExecuteButton";
 import { NavigationTabs } from "./NavigationTabs";
+import { PublishButton } from "./PublishButton";
+import { UnpublishButton } from "./UnpublishButton";
 
 interface TopbarProps {
   title: string;
   workflowId: string;
   subTitle?: string;
   hideButtons?: boolean;
+  isPublished?: boolean;
 }
 
 export const TopBar: React.FC<TopbarProps> = ({
@@ -20,8 +23,10 @@ export const TopBar: React.FC<TopbarProps> = ({
   subTitle,
   workflowId,
   hideButtons,
+  isPublished = false,
 }) => {
   const router = useRouter();
+
   return (
     <header className="flex p-2 border-b-2 border-separate justify-between w-full h-[60px] sticky bg-background z-10">
       <div className="flex gap-1 flex-1">
@@ -44,7 +49,14 @@ export const TopBar: React.FC<TopbarProps> = ({
         {!hideButtons && (
           <>
             <ExecuteButton workflowId={workflowId} />
-            <SaveButton workflowId={workflowId} />
+            {isPublished ? (
+              <UnpublishButton workflowId={workflowId} />
+            ) : (
+              <>
+                <SaveButton workflowId={workflowId} />
+                <PublishButton workflowId={workflowId} />
+              </>
+            )}
           </>
         )}
       </div>
