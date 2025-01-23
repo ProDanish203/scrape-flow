@@ -5,8 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { WorkflowStatus } from "@/types/workflow";
 import {
+  CoinsIcon,
+  CornerDownRightIcon,
   FileTextIcon,
   MoreVerticalIcon,
+  MoveRightIcon,
   PlayIcon,
   ShuffleIcon,
   TrashIcon,
@@ -24,6 +27,8 @@ import {
 import TooltipWrapper from "@/components/helpers/TooltipWrapper";
 import DeleteWorkflowDialog from "./DeleteWorkflowDialog";
 import { RunButton } from "./RunButton";
+import { SchedulerDialog } from "./SchedulerDialog";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
   workflow: Workflow;
@@ -66,6 +71,12 @@ export const WorkflowCard: React.FC<Props> = ({ workflow }) => {
                 </span>
               )}
             </h3>
+            {!isDraft && (
+              <SchedulerSection
+                workflowId={workflow.id}
+                creditsCost={workflow.creditsCost}
+              />
+            )}
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -130,5 +141,32 @@ function WorkflowActions({
         </DropdownMenuContent>
       </DropdownMenu>
     </>
+  );
+}
+
+function SchedulerSection({
+  workflowId,
+  creditsCost,
+}: {
+  creditsCost: number;
+  workflowId: string;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <CornerDownRightIcon className="h-4 w-4 text-muted-foreground" />
+      <SchedulerDialog workflowId={workflowId} />
+      <MoveRightIcon className="h-4 w-4 text-muted-foreground" />
+      <TooltipWrapper content="Credit consumption for full run">
+        <div className="flex items-center gap-3">
+          <Badge
+            variant={"outline"}
+            className="space-x-2 text-muted-foreground rounded-sm"
+          >
+            <CoinsIcon className="h-4 w-4" />
+            <span className="text-sm">{creditsCost}</span>
+          </Badge>
+        </div>
+      </TooltipWrapper>
+    </div>
   );
 }
