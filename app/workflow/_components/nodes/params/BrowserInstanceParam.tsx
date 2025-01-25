@@ -2,11 +2,6 @@
 import { ParamProps } from "@/types/task";
 import React from "react";
 
-export const BrowserInstanceParam: React.FC<ParamProps> = ({
-  param,
-  value,
-  updateNodeParamValue,
-  disabled,
-}) => {
+export const BrowserInstanceParam: React.FC<ParamProps> = ({ param }) => {
   return <p>{param.name}</p>;
 };
