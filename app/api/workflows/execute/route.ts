@@ -10,6 +10,7 @@ import {
 } from "@/types/workflow";
 import { timingSafeEqual } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
+import cronParser from "cron-parser";
 
 // For security reasons, we need to validate the secret using a constant-time comparison function to prevent timing attacks.
 function isValidSecret(secret: string) {
@@ -69,39 +70,49 @@ export async function GET(req: NextRequest) {
         { status: 404 }
       );
 
-    const execution = await prisma.workflowExecution.create({
-      data: {
-        workflowId,
-        userId: workflow.userId,
-        definition: workflow.definition,
-        status: WorkflowExecutionStatus.PENDING,
-        startedAt: new Date(),
-        trigger: WorkflowExecutionTrigger.CRON,
-        phases: {
-          create: executionPlan.flatMap((phase) => {
-            return phase.nodes.flatMap((node) => {
-              return {
-                userId: workflow.userId,
-                status: ExecutionPhaseStatus.CREATED,
-                number: phase.phase,
-                node: JSON.stringify(node),
-                name: TaskRegistry[node.data.type].label,
-              };
-            });
-          }),
+    try {
+      const cron = cronParser.parseExpression(workflow.cron!, { utc: true });
+      const nextRun = cron.next().toDate();
+
+      const execution = await prisma.workflowExecution.create({
+        data: {
+          workflowId,
+          userId: workflow.userId,
+          definition: workflow.definition,
+          status: WorkflowExecutionStatus.PENDING,
+          startedAt: new Date(),
+          trigger: WorkflowExecutionTrigger.CRON,
+          phases: {
+            create: executionPlan.flatMap((phase) => {
+              return phase.nodes.flatMap((node) => {
+                return {
+                  userId: workflow.userId,
+                  status: ExecutionPhaseStatus.CREATED,
+                  number: phase.phase,
+                  node: JSON.stringify(node),
+                  name: TaskRegistry[node.data.type].label,
+                };
+              });
+            }),
+          },
         },
-      },
-    });
+      });
 
-    await ExecuteWorkflow(execution.id);
+      await ExecuteWorkflow(execution.id, nextRun);
 
-    return NextResponse.json(
-      {
-        message: "Workflow executed successfully",
-        success: true,
-      },
-      { status: 200 }
-    );
+      return NextResponse.json(
+        {
+          message: "Workflow executed successfully",
+          success: true,
+        },
+        { status: 200 }
+      );
+    } catch (err) {
+      return NextResponse.json(
+        { message: "Internal Server Error", success: false },
+        { status: 500 }
+      );
+    }
   } catch (err) {
     console.error(err);
   }
