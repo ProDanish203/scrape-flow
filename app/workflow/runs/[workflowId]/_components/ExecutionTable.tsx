@@ -71,7 +71,7 @@ export const ExecutionTable = ({
                 <TableCell>
                   <div className="flex flex-col">
                     <span className="font-semibold">{execution.id}</span>
-                    <div className="text-muted-foreground text-xs">
+                    <div className="text-muted-foreground text-xs flex items-center gap-1">
                       <span>Triggered via</span>
                       <Badge variant="outline">{execution.trigger}</Badge>
                     </div>
