@@ -18,6 +18,6 @@ export const GetworkflowExecutions = async (workflowId: string) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };

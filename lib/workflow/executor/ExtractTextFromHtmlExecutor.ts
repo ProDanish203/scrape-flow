@@ -35,7 +35,6 @@ export async function ExtractTextFromHtmlExecutor(
 
     return true;
   } catch (err: any) {
-    console.log(err);
     environment.log.error(err.message);
     return false;
   }

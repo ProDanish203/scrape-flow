@@ -33,9 +33,6 @@ export const PublishButton: React.FC<PublishButtonProps> = ({ workflowId }) => {
     const plan = generateExecutionPlan();
     // Client side validation
     if (!plan) return;
-    // console.log("-----PLAN STARTED------");
-    // console.table(plan);
-    // console.log("-----PLAN ENDED------");
     toast.loading("Publishing workflow...", { id: "workflow-published" });
     mutate({
       workflowId,

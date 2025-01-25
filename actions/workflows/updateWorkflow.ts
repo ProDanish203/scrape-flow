@@ -38,6 +38,6 @@ export const UpdateWorkflow = async ({
     revalidatePath(`/workflows`);
     return updatedWorkflow;
   } catch (err) {
-    console.log("Error: ", err);
+    console.error("Error: ", err);
   }
 };
