@@ -18,6 +18,7 @@ const TooltipWrapper: React.FC<Props> = ({
   content,
   side = "top",
 }) => {
+  if (!content) return <>{children}</>;
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>

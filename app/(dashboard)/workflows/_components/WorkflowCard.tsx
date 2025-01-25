@@ -37,6 +37,7 @@ import {
 } from "@/app/workflow/runs/[workflowId]/_components/ExecutionStatusIndicator";
 import { format, formatDistanceToNow } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
+import { DuplicateWorkflowDialog } from "./DuplicateWorkflowDialog";
 
 interface Props {
   workflow: Workflow;
@@ -50,8 +51,8 @@ const statusColors = {
 export const WorkflowCard: React.FC<Props> = ({ workflow }) => {
   const isDraft = workflow.status === WorkflowStatus.DRAFT;
   return (
-    <Card className="border border-separate shadow-md rounded-lg overflow-hidden hover:shadow-md dark:shadow-primary/30">
-      <CardContent className="p-4 flex items-center      justify-between h-[100px]">
+    <Card className="border border-separate shadow-md rounded-lg overflow-hidden hover:shadow-md dark:shadow-primary/30 group/card">
+      <CardContent className="p-4 flex items-center justify-between h-[100px]">
         <div className="flex items-center justify-end space-x-3">
           <div
             className={cn(
@@ -67,17 +68,20 @@ export const WorkflowCard: React.FC<Props> = ({ workflow }) => {
           </div>
           <div>
             <h3 className="text-base font-bold text-muted-foreground flex items-center">
-              <Link
-                href={`/workflow/editor/${workflow.id}`}
-                className="flex items-center hover:underline"
-              >
-                {workflow.name}
-              </Link>
+              <TooltipWrapper content={workflow.description}>
+                <Link
+                  href={`/workflow/editor/${workflow.id}`}
+                  className="flex items-center hover:underline"
+                >
+                  {workflow.name}
+                </Link>
+              </TooltipWrapper>
               {isDraft && (
                 <span className="ml-2 px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yello-800 rounded-full">
                   Draft
                 </span>
               )}
+              <DuplicateWorkflowDialog workflowId={workflow.id} />
             </h3>
             {!isDraft && (
               <SchedulerSection
