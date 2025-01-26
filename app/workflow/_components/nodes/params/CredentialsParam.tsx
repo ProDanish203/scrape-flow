@@ -48,7 +48,7 @@ export const CredentialsParam: React.FC<ParamProps> = ({
               data &&
               data.length > 0 &&
               data.map((credential) => (
-                <SelectItem key={credential.id} value={credential.value}>
+                <SelectItem key={credential.id} value={credential.id}>
                   {credential.name}
                 </SelectItem>
               ))}
