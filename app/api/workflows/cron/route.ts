@@ -36,7 +36,7 @@ function triggerWorkflow(workflowId: string) {
 
   fetch(triggerUrl, {
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+      Authorization: `Bearer ${process.env.API_SECRET}`,
     },
     cache: "no-cache",
     // signal: AbortSignal.timeout(5000), // Optional timeout in ms

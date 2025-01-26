@@ -14,7 +14,7 @@ import cronParser from "cron-parser";
 
 // For security reasons, we need to validate the secret using a constant-time comparison function to prevent timing attacks.
 function isValidSecret(secret: string) {
-  const API_SECRET = process.env.NEXT_PUBLIC_API_KEY;
+  const API_SECRET = process.env.API_SECRET;
   if (!API_SECRET) return false;
 
   try {
