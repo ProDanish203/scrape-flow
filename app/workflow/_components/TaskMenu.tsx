@@ -49,6 +49,7 @@ export const TaskMenu = () => {
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1">
             <TaskMenuButton taskType={TaskType.READ_PROPERTY_FROM_JSON} />
+            <TaskMenuButton taskType={TaskType.ADD_PROPERTY_TO_JSON} />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="timing">
