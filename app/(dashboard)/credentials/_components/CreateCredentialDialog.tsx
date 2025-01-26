@@ -133,7 +133,7 @@ export const CreateCredentialDialog = ({
                 )}
               />
               <Button type="submit" className="w-full" disabled={isPending}>
-                {!isPending && "Proceed"}
+                {!isPending && "Create"}
                 {isPending && <Loader2 className="animate-spin" />}
               </Button>
             </form>
