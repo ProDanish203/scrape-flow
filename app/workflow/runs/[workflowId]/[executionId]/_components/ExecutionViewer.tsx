@@ -64,7 +64,7 @@ export const ExecutionViewer: React.FC<ExecutionViewerProps> = ({
   });
 
   const { data: phaseData } = useQuery({
-    queryKey: ["phaseDetails", selectedPhase],
+    queryKey: ["phaseDetails", selectedPhase, data?.status],
     enabled: selectedPhase !== null,
     queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
   });
