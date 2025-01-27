@@ -4,6 +4,10 @@ import { PeriodSelector } from "./_components/PeriodSelector";
 import { Period } from "@/types/analytics";
 import { Skeleton } from "@/components/ui/skeleton";
 import { GetStatsCardsValues } from "@/actions/periods/getStatsCardsValues";
+import { CirclePlayIcon, CoinsIcon, WaypointsIcon } from "lucide-react";
+import { StatsCard } from "./_components/StatsCard";
+import { GetWorkflowExecutionStats } from "@/actions/periods/getWorkflowExecutionStats";
+import { ExecutionStatusChart } from "./_components/ExecutionStatusChart";
 
 const HomePage = ({
   searchParams,
@@ -24,7 +28,15 @@ const HomePage = ({
           <PeriodSelectionWrapper selectedPeriod={period} />
         </Suspense>
       </div>
-      <StatsCard selectedPeriod={period} />
+      <div className="w-full py-6 flex flex-col gap-4">
+        <Suspense fallback={<StatsCardSkeleton />}>
+          <StatsCardWrapper selectedPeriod={period} />
+        </Suspense>
+
+        <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+          <StatsExecutionStatus selectedPeriod={period} />
+        </Suspense>
+      </div>
     </div>
   );
 };
@@ -40,13 +52,50 @@ async function PeriodSelectionWrapper({
   );
 }
 
-async function StatsCard({ selectedPeriod }: { selectedPeriod: Period }) {
+async function StatsCardWrapper({
+  selectedPeriod,
+}: {
+  selectedPeriod: Period;
+}) {
   const data = await GetStatsCardsValues(selectedPeriod);
   return (
-    <div>
-      <pre>{JSON.stringify(data, null, 4)}</pre>
+    <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
+      <StatsCard
+        title="Workflow execution"
+        value={data?.workflowExecution || 0}
+        Icon={CirclePlayIcon}
+      />
+      <StatsCard
+        title="Phase execution"
+        value={data?.phasesExecution || 0}
+        Icon={WaypointsIcon}
+      />
+      <StatsCard
+        title="Credits consumed"
+        value={data?.creditsConsumed || 0}
+        Icon={CoinsIcon}
+      />
     </div>
   );
+}
+
+function StatsCardSkeleton() {
+  return (
+    <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
+      <Skeleton className="h-[120px]" />
+      <Skeleton className="h-[120px]" />
+      <Skeleton className="h-[120px]" />
+    </div>
+  );
+}
+
+async function StatsExecutionStatus({
+  selectedPeriod,
+}: {
+  selectedPeriod: Period;
+}) {
+  const data = await GetWorkflowExecutionStats(selectedPeriod);
+  return <ExecutionStatusChart data={data}/>;
 }
 
 export default HomePage;

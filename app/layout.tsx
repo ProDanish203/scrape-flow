@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import ReactQueryProvider from "@/store/ReactQueryProvider";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
+import { ThemeProvider } from "@/store/ThemeProvider";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -47,15 +48,15 @@ export default function RootLayout({
 
             <Toaster richColors position="top-right" />
             {/* // TODO: Throws Hydartion Error */}
-            {/* <ThemeProvider
+            <ThemeProvider
               attribute="class"
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
-              >
+            >
               {children}
-              </ThemeProvider> */}
-            {children}
+            </ThemeProvider>
+            {/* {children} */}
           </ReactQueryProvider>
         </body>
       </ClerkProvider>
