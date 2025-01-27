@@ -9,6 +9,8 @@ import {
 import { TaskType } from "@/types/task";
 import { Button } from "@/components/ui/button";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
+import { Badge } from "@/components/ui/badge";
+import { CoinsIcon } from "lucide-react";
 
 export const TaskMenu = () => {
   return (
@@ -94,6 +96,10 @@ const TaskMenuButton = ({ taskType }: { taskType: TaskType }) => {
         <task.icon size={20} />
         {task.label}
       </div>
+      <Badge variant={"outline"} className="gap-2 flex items-center">
+        <CoinsIcon size={16} />
+        {task.credits}
+      </Badge>
     </Button>
   );
 };
