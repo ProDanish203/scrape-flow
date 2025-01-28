@@ -2,6 +2,7 @@ import { getCreditsPack, PackId } from "@/types/billing";
 import "server-only";
 import Stripe from "stripe";
 import prisma from "../prisma";
+import { revalidatePath } from "next/cache";
 
 export async function HandleCheckoutSessionCompleted(
   event: Stripe.Checkout.Session
@@ -38,4 +39,6 @@ export async function HandleCheckoutSessionCompleted(
       currency: event.currency! || "usd",
     },
   });
+
+  revalidatePath("/billing");
 }
