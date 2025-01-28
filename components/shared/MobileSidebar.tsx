@@ -4,12 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button, buttonVariants } from "../ui/button";
 import React, { useState } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { Logo } from "./Logo";
 import { UserAvailableCreditsBadge } from "../helpers";
@@ -19,7 +14,7 @@ export const MobileSidebar = () => {
   const pathname = usePathname();
   const activeRoute =
     dashboardRoutes.find(
-      (route) => route.href.length > 0 && pathname.includes(route.href)
+      (route) => route.href.length > 0 && pathname === route.href
     ) || dashboardRoutes[0];
   return (
     <div className="block border-separate bg-background md:hidden">
