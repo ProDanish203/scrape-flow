@@ -8,14 +8,16 @@ import { CirclePlayIcon, CoinsIcon, WaypointsIcon } from "lucide-react";
 import { StatsCard } from "./_components/StatsCard";
 import { GetWorkflowExecutionStats } from "@/actions/periods/getWorkflowExecutionStats";
 import { ExecutionStatusChart } from "./_components/ExecutionStatusChart";
+import { GetCreditsUsageInPeriod } from "@/actions/periods/getCreditsUsageInPeriod";
+import { CreditsUsageChart } from "../billing/_components/CreditsUsageChart";
 
-const HomePage = ({
+const HomePage = async ({
   searchParams,
 }: {
   searchParams: { month?: string; year?: string };
 }) => {
   const currentDate = new Date();
-  const { month, year } = searchParams;
+  const { month, year } = await searchParams;
   const period: Period = {
     month: month ? parseInt(month) : currentDate.getMonth(),
     year: year ? parseInt(year) : currentDate.getFullYear(),
@@ -35,6 +37,9 @@ const HomePage = ({
 
         <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
           <StatsExecutionStatus selectedPeriod={period} />
+        </Suspense>
+        <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+          <CreditsUsageInPeriod selectedPeriod={period} />
         </Suspense>
       </div>
     </div>
@@ -95,7 +100,22 @@ async function StatsExecutionStatus({
   selectedPeriod: Period;
 }) {
   const data = await GetWorkflowExecutionStats(selectedPeriod);
-  return <ExecutionStatusChart data={data}/>;
+  return <ExecutionStatusChart data={data} />;
+}
+
+async function CreditsUsageInPeriod({
+  selectedPeriod,
+}: {
+  selectedPeriod: Period;
+}) {
+  const data = await GetCreditsUsageInPeriod(selectedPeriod);
+  return (
+    <CreditsUsageChart
+      data={data}
+      title="Daily credits spend"
+      description="Daily credit consumed in selected period"
+    />
+  );
 }
 
 export default HomePage;
