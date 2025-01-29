@@ -47,7 +47,6 @@ export default function RootLayout({
             <NextTopLoader color="#10b981" showSpinner={false} />
 
             <Toaster richColors position="top-right" />
-            {/* // TODO: Throws Hydartion Error */}
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -56,7 +55,6 @@ export default function RootLayout({
             >
               {children}
             </ThemeProvider>
-            {/* {children} */}
           </ReactQueryProvider>
         </body>
       </ClerkProvider>
