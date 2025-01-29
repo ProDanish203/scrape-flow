@@ -2,7 +2,7 @@
 import { dashboardRoutes } from "@/lib/data";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Button, buttonVariants } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import React, { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";

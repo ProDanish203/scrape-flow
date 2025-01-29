@@ -14,7 +14,7 @@ import { CreditsUsageChart } from "../billing/_components/CreditsUsageChart";
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams: { month?: string; year?: string };
+  searchParams: Promise<{ month?: string; year?: string }>;
 }) => {
   const currentDate = new Date();
   const { month, year } = await searchParams;

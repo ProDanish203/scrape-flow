@@ -1,5 +1,4 @@
 import { ExecutionEnvironment } from "@/types/executor";
-import { FillInputTask } from "../task/FillInput";
 import { WaitForElementTask } from "../task/WaitForElement";
 
 export async function WaitForElementExecutor(

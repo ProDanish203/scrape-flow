@@ -1,5 +1,4 @@
 import { ExecutionEnvironment } from "@/types/executor";
-import { ClickElementTask } from "../task/ClickElement";
 import { DeliverViaWebhookTask } from "../task/DeliverViaWebhook";
 
 export async function DeliverViaWebhookExecutor(

@@ -51,7 +51,7 @@ export const PeriodSelector: React.FC<PeriodSelectorProps> = ({
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {periods.map(({ month, year }, idx) => (
+        {periods.map(({ month, year }) => (
           <SelectItem key={`${month}-${year}`} value={`${month}-${year}`}>
             {MONTH_NAMES[month]} {year}
           </SelectItem>

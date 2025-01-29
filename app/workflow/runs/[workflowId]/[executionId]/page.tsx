@@ -8,7 +8,7 @@ import { ExecutionViewer } from "./_components/ExecutionViewer";
 const ExecutionPage = async ({
   params,
 }: {
-  params: { executionId: string; workflowId: string };
+  params: Promise<{ executionId: string; workflowId: string }>;
 }) => {
   const { executionId, workflowId } = await params;
 

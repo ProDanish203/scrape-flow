@@ -21,7 +21,7 @@ export const CredentialsParam: React.FC<ParamProps> = ({
   disabled,
 }) => {
   const id = useId();
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["credentials-for-user"],
     queryFn: () => GetCredentialsForUser(),
     refetchInterval: 10000,

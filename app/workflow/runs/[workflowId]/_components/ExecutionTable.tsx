@@ -2,7 +2,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -28,7 +27,7 @@ export const ExecutionTable = ({
   initialData: InitialDataType;
 }) => {
   const router = useRouter();
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["workflowExecutions", workflowId],
     queryFn: () => GetworkflowExecutions(workflowId),
     initialData,

@@ -6,8 +6,6 @@ import React, { useCallback, useState } from "react";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { useForm } from "react-hook-form";
 import {
-  createWorkflowSchema,
-  createWorkflowSchemaType,
   duplicateWorkflowSchema,
   duplicateWorkflowSchemaType,
 } from "@/schema/workflow";
