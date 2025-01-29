@@ -73,9 +73,12 @@ export const CreateCredentialDialog = ({
     >
       <DialogTrigger asChild>
         <div
-          className={buttonVariants({
-            variant: "default",
-          })}
+          className={cn(
+            "cursor-pointer",
+            buttonVariants({
+              variant: "default",
+            })
+          )}
         >
           <PlusIcon size={20} className="sm:hidden font-bold" />
           <span className="max-sm:hidden">
