@@ -6,9 +6,11 @@ import React from "react";
 export const Logo = ({
   fontSize = "2xl",
   iconSize = 20,
+  hideText = false,
 }: {
   fontSize?: string;
   iconSize?: number;
+  hideText?: boolean;
 }) => {
   return (
     <Link
@@ -21,12 +23,14 @@ export const Logo = ({
       <div className="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 p-2">
         <SquareDashedMousePointer size={iconSize} className="stroke-white" />
       </div>
-      <div>
-        <span className="bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-          Flow
-        </span>
-        <span className="text-stone-700 dark:text-stone-300">Scrape</span>
-      </div>
+      {!hideText && (
+        <div>
+          <span className="bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">
+            Flow
+          </span>
+          <span className="text-stone-700 dark:text-stone-300">Scrape</span>
+        </div>
+      )}
     </Link>
   );
 };
