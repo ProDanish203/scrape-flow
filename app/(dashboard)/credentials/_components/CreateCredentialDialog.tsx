@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Layers2Icon, Loader2, ShieldEllipsis } from "lucide-react";
+import { Loader2, PlusIcon, ShieldEllipsis } from "lucide-react";
 import React, { useCallback, useState } from "react";
 import CustomDialogHeader from "../../workflows/_components/CustomDialogHeader";
 import { useForm } from "react-hook-form";
@@ -72,7 +72,16 @@ export const CreateCredentialDialog = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button>{triggerText ?? "Create Credential"}</Button>
+        <div
+          className={buttonVariants({
+            variant: "default",
+          })}
+        >
+          <PlusIcon size={20} className="sm:hidden font-bold" />
+          <span className="max-sm:hidden">
+            {triggerText ?? "Create Credential"}
+          </span>
+        </div>
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader Icon={ShieldEllipsis} title="Create Credential" />

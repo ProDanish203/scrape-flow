@@ -13,8 +13,10 @@ const CredentialsPage = () => {
     <div className="flex flex-1 flex-col h-full">
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <h1 className="text-3xl font-bold">Credentials</h1>
-          <p className="text-muted-foreground">Manage your credentials</p>
+          <h1 className="xs:text-3xl text-2xl font-bold">Credentials</h1>
+          <p className="max-sm:text-sm text-muted-foreground">
+            Manage your credentials
+          </p>
         </div>
         <CreateCredentialDialog />
       </div>

@@ -17,7 +17,7 @@ import {
   TrashIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -51,8 +51,8 @@ const statusColors = {
 export const WorkflowCard: React.FC<Props> = ({ workflow }) => {
   const isDraft = workflow.status === WorkflowStatus.DRAFT;
   return (
-    <Card className="border border-separate shadow-md rounded-lg overflow-hidden hover:shadow-md dark:shadow-primary/30 group/card">
-      <CardContent className="p-4 flex items-center justify-between h-[100px]">
+    <Card className="border border-separate shadow-md rounded-lg overflow-hidden hover:shadow-md dark:shadowz-primary/30 group/card">
+      <CardContent className="p-4 flex max-md:flex-col max-md:items-start max-md:justify-between gap-y-4 md:items-center md:justify-between md:h-[100px]">
         <div className="flex items-center justify-end space-x-3">
           <div
             className={cn(
@@ -139,9 +139,14 @@ function WorkflowActions({
       <DropdownMenu>
         <DropdownMenuTrigger>
           <TooltipWrapper content={"More actions"}>
-            <Button variant={"outline"} size={"sm"}>
+            <div
+              className={buttonVariants({
+                variant: "outline",
+                size: "sm",
+              })}
+            >
               <MoreVerticalIcon size={18} />
-            </Button>
+            </div>
           </TooltipWrapper>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -198,7 +203,7 @@ function LastRunDetails({ workflow }: { workflow: Workflow }) {
   const nextRunScheduleUtc =
     nextRunAt && formatInTimeZone(nextRunAt, "UTC", "HH:mm");
   return (
-    <div className="bg-primary/5 px-4 py-1 flex justify-between items-center text-muted-foreground">
+    <div className="bg-primary/5 px-4 py-1 flex md:justify-between md:items-center text-muted-foreground max-md:flex-col max-md:gap-y-2">
       <div className="flex items-center text-sm gap-2">
         {lastRunAt ? (
           <Link

@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Layers2Icon, Loader2 } from "lucide-react";
+import { Layers2Icon, Loader2, PlusIcon } from "lucide-react";
 import React, { useCallback, useState } from "react";
 import CustomDialogHeader from "./CustomDialogHeader";
 import { useForm } from "react-hook-form";
@@ -70,7 +70,16 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button>{triggerText ?? "Create Workflow"}</Button>
+        <div
+          className={buttonVariants({
+            variant: "default",
+          })}
+        >
+          <PlusIcon size={20} className="sm:hidden font-bold" />
+          <span className="max-sm:hidden">
+            {triggerText ?? "Create Workflow"}
+          </span>
+        </div>
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader

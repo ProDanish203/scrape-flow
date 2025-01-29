@@ -1,6 +1,6 @@
 "use client";
 import TooltipWrapper from "@/components/helpers/TooltipWrapper";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ChevronLeftIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -31,11 +31,17 @@ export const TopBar: React.FC<TopbarProps> = ({
     <header className="flex p-2 border-b-2 border-separate justify-between w-full h-[60px] sticky bg-background z-10">
       <div className="flex gap-1 flex-1">
         <TooltipWrapper content="Back">
-          <Button variant="ghost" size="icon" onClick={() => router.back()}>
+          <div
+            className={buttonVariants({
+              variant: "ghost",
+              size: "icon",
+            })}
+            onClick={() => router.back()}
+          >
             <ChevronLeftIcon size={20} />
-          </Button>
+          </div>
         </TooltipWrapper>
-        <div>
+        <div className="max-sm:hidden">
           <p className="font-bold text-ellipsis truncate">{title}</p>
           {subTitle && (
             <p className="text-xs text-muted-foreground truncate text-ellipsis">

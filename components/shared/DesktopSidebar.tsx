@@ -36,7 +36,7 @@ export const DesktopSidebar = () => {
         )}
       >
         <div className="flex items-center justify-center gap-2 border-b-[1px] border-separate p-4 relative">
-          <Logo hideText />
+          <Logo hideText={isSidebarCollapsed} />
           <div
             onClick={() => setIsSidebarCollapsed((prev) => !prev)}
             className="size-8 absolute -right-4 top-3.5 flex items-center justify-center bg-secondary shadow-md hover:shadow-lg transition  rounded-full z-10 cursor-pointer"
@@ -53,7 +53,7 @@ export const DesktopSidebar = () => {
             <UserAvailableCreditsBadge />
           </div>
         )}
-        <div className="flex flex-col p-2">
+        <div className="flex flex-col gap-y-2 p-2">
           {dashboardRoutes.map((route, idx) => (
             <Link
               href={route.href}

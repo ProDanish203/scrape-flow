@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CopyIcon, Layers2Icon, Loader2 } from "lucide-react";
 import React, { useCallback, useState } from "react";
@@ -77,15 +77,17 @@ export const DuplicateWorkflowDialog = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button
-          variant={"outline"}
-          size={"icon"}
+        <div
           className={cn(
-            "ml-2 transition-opacity duration-200 opacity-0 group-hover/card:opacity-100"
+            "ml-2 transition-opacity duration-200 opacity-0 group-hover/card:opacity-100",
+            buttonVariants({
+              variant: "outline",
+              size: "icon",
+            })
           )}
         >
           <CopyIcon className="w-4 h-4 text-muted-foreground cursor-pointer" />
-        </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader Icon={Layers2Icon} title="Duplicate workflow" />

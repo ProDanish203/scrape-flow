@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -105,15 +105,18 @@ export const SchedulerDialog = ({
     toast.dismiss("workflow-scheduled-loading");
   };
 
+  // TODO: fix close modal popup
   return (
     <Dialog onOpenChange={() => setCronValue(cron || "")}>
       <DialogTrigger asChild>
-        <Button
-          variant={"outline"}
-          size={"sm"}
+        <div
           className={cn(
-            "text-sm p-0 h-auto text-orange-500",
-            workflowHasValidCron && "text-primary"
+            "text-sm p-0 h-auto max-h-[30px] text-orange-500",
+            workflowHasValidCron && "text-primary",
+            buttonVariants({
+              variant: "outline",
+              size: "sm",
+            })
           )}
         >
           {workflowHasValidCron ? (
@@ -126,7 +129,7 @@ export const SchedulerDialog = ({
               <TriangleAlertIcon className="h-3 w-3 mr-1" /> Set Schedule
             </div>
           )}
-        </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader
@@ -176,18 +179,32 @@ export const SchedulerDialog = ({
         </div>
         <DialogFooter className="px-6 gap-2">
           <DialogClose asChild>
-            <Button className="w-full" variant={"secondary"}>
+            <div
+              className={cn(
+                "w-full",
+                buttonVariants({
+                  variant: "secondary",
+                })
+              )}
+            >
               Cancel
-            </Button>
+            </div>
           </DialogClose>
-          <DialogClose asChild>
-            <Button
-              className="w-full"
-              disabled={isPending || !validCron}
-              onClick={handleScheduleWorkflow}
+          <DialogClose asChild disabled={!validCron || isPending}>
+            <div
+              className={cn(
+                "w-full",
+                isPending || (!validCron && "cursor-not-allowed opacity-50"),
+                buttonVariants({
+                  variant: "default",
+                })
+              )}
+              onClick={() =>
+                !isPending && validCron && handleScheduleWorkflow()
+              }
             >
               Save
-            </Button>
+            </div>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

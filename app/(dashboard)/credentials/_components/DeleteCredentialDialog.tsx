@@ -15,7 +15,7 @@ import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { DeleteCredential } from "@/actions/credentials/deleteCredential";
 import { XIcon } from "lucide-react";
 
@@ -53,9 +53,14 @@ export const DeleteCredentialDialog: React.FC<Props> = ({ credentialName }) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant={"destructive"} size={"icon"}>
+        <div
+          className={buttonVariants({
+            variant: "destructive",
+            size: "icon",
+          })}
+        >
           <XIcon size={18} />
-        </Button>
+        </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

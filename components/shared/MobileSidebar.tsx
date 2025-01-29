@@ -18,15 +18,20 @@ export const MobileSidebar = () => {
     ) || dashboardRoutes[0];
   return (
     <div className="block border-separate bg-background md:hidden">
-      <nav className="container flex items-center justify-between px-8">
+      <nav className="flex items-center justify-start">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant={"ghost"} size={"icon"}>
+            <div
+              className={buttonVariants({
+                variant: "ghost",
+                size: "icon",
+              })}
+            >
               <MenuIcon />
-            </Button>
+            </div>
           </SheetTrigger>
           <SheetContent
-            className="w-[400px] sm:w-[540px] space-y-4"
+            className="w-[370px] sm:w-[540px] space-y-4"
             side={"left"}
           >
             <Logo />
